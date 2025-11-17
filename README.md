@@ -1,71 +1,73 @@
-🌌 AI Stock Intelligence Dashboard & Subscription System
+# 🌌 AI Stock Intelligence Dashboard & Subscription System
 
-A modern, dark-themed web application built with Next.js, featuring a dynamic Aurora background (WebGL + OGL), real-time stock subscription management, and a fully typed API contract between frontend and backend.
+## 1. Overview
+
+A modern, dark-themed web application built with **Next.js**, featuring:
+
+- A dynamic Aurora background (WebGL + OGL)
+- Real-time stock subscription management
+- A fully typed API contract between frontend and backend
 
 This project enables:
 
-Beautiful dark UI powered by a custom Aurora shader background
+- Beautiful dark UI powered by a custom Aurora shader background  
+- User subscription management  
+- Plan selection (Trial / Basic / Pro)  
+- Ticker tracking with plan-based limits  
+- Email alert customization  
+- Fully typed API communication  
+- Consistent design across dashboard & subscription settings  
 
-User subscription management
+---
 
-Plan selection (Trial / Basic / Pro)
+## 2. Tech Stack
 
-Ticker tracking with plan-based limits
+### 2.1 Frontend
 
-Email alert customization
+- **Next.js 14+** (App Router, Turbopack)  
+- **React**  
+- **TypeScript**  
+- **OGL** (WebGL shader rendering)  
+- Styled components using inline CSS + minimal classes  
 
-Fully typed API communication
+### 2.2 API Communication
 
-Consistent design across dashboard & subscription settings
+- Custom `SubscriptionPayload` / `SubscriptionResponse` TypeScript interfaces  
+- REST API `POST` endpoint  
 
-🚀 Tech Stack
-Frontend
+---
 
-Next.js 14+ (App Router, Turbopack)
+## 3. UI Highlights
 
-React
+### 3.1 Dark, Glassmorphism Design
 
-TypeScript
+- Frosted card containers  
+- Hover animations  
+- Soft borders with transparency  
+- Clean typography using **Inter**  
 
-OGL (WebGL shader rendering)
+### 3.2 Animated Aurora Background
 
-Styled components using inline CSS + minimal classes
+- Fullscreen WebGL shader  
+- Customizable color stops, amplitude, speed  
+- Runs efficiently inside Next.js client components  
 
-API Communication
+---
 
-Custom SubscriptionPayload / SubscriptionResponse interfaces
+## 4. Subscription Update API Documentation
 
-REST API POST endpoint
+This section defines the **official payload contract** between the Next.js frontend and the backend service.
 
-🎨 UI Highlights
-🌙 Dark, glassmorphism design
+### 4.1 Endpoint
 
-Frosted card containers
+**POST** `/api/subscription/update`
 
-Hover animations
-
-Soft borders with transparency
-
-Clean typography using Inter
-
-🌌 Animated Aurora Background
-
-Fullscreen WebGL shader
-
-Customizable color stops, amplitude, speed
-
-Runs efficiently under Next.js client components
-
-🧩 Subscription Update API Documentation
-
-This section defines the official payload contract between the Next.js frontend and the backend service.
-
-📡 POST /api/subscription/update
-
-The frontend sends the user’s updated subscription settings to this endpoint.
-
+**Headers:**
 Content-Type: application/json
-📘 Request Body — SubscriptionPayload
+
+### 4.2 Request Body — SubscriptionPayload
+Request Body — SubscriptionPayload
+```text
 export interface SubscriptionPayload {
   /** Full name of the user */
   name: string;
@@ -88,8 +90,9 @@ export interface SubscriptionPayload {
   /** Optional custom subject for email reports */
   email_subject?: string;
 }
-
-📦 Example Request Payload
+```
+### 4.3 Example Request Payload
+```text
 {
   "name": "John Doe",
   "email": "john@example.com",
@@ -99,8 +102,10 @@ export interface SubscriptionPayload {
   "period_end": "2025-11-26T00:00:00",
   "email_subject": "Your Daily AI Market Digest"
 }
+```
 
-🔁 Response — SubscriptionResponse
+### 4.4 Response — SubscriptionResponse
+```text
 export interface SubscriptionResponse {
   success: boolean;
   message?: string;
@@ -108,4 +113,4 @@ export interface SubscriptionResponse {
   /** The updated subscription record */
   subscription: SubscriptionPayload;
 }
-
+```
