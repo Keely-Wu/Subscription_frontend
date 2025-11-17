@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🌌 AI Stock Intelligence Dashboard & Subscription System
 
-## Getting Started
+A modern, dark-themed web application built with Next.js, featuring a dynamic Aurora background (WebGL + OGL), real-time stock subscription management, and a fully typed API contract between frontend and backend.
 
-First, run the development server:
+This project enables:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Beautiful dark UI powered by a custom Aurora shader background
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+User subscription management
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Plan selection (Trial / Basic / Pro)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Ticker tracking with plan-based limits
 
-## Learn More
+Email alert customization
 
-To learn more about Next.js, take a look at the following resources:
+Fully typed API communication
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Consistent design across dashboard & subscription settings
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+🚀 Tech Stack
+Frontend
 
-## Deploy on Vercel
+Next.js 14+ (App Router, Turbopack)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+React
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+TypeScript
+
+OGL (WebGL shader rendering)
+
+Styled components using inline CSS + minimal classes
+
+API Communication
+
+Custom SubscriptionPayload / SubscriptionResponse interfaces
+
+REST API POST endpoint
+
+🎨 UI Highlights
+🌙 Dark, glassmorphism design
+
+Frosted card containers
+
+Hover animations
+
+Soft borders with transparency
+
+Clean typography using Inter
+
+🌌 Animated Aurora Background
+
+Fullscreen WebGL shader
+
+Customizable color stops, amplitude, speed
+
+Runs efficiently under Next.js client components
+
+🧩 Subscription Update API Documentation
+
+This section defines the official payload contract between the Next.js frontend and the backend service.
+
+📡 POST /api/subscription/update
+
+The frontend sends the user’s updated subscription settings to this endpoint.
+
+Content-Type: application/json
+📘 Request Body — SubscriptionPayload
+export interface SubscriptionPayload {
+  /** Full name of the user */
+  name: string;
+
+  /** Email used for login + email push */
+  email: string;
+
+  /** List of stock tickers tracked by user */
+  tickers: string[];
+
+  /** Human-readable plan name */
+  plan: "Trial" | "Basic Monthly" | "Pro Monthly";
+
+  /** Subscription period start time (ISO 8601) */
+  period_start: string;
+
+  /** Subscription period end time (ISO 8601) */
+  period_end: string;
+
+  /** Optional custom subject for email reports */
+  email_subject?: string;
+}
+
+📦 Example Request Payload
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "tickers": ["AAPL", "NVDA", "MSFT"],
+  "plan": "Pro Monthly",
+  "period_start": "2025-11-12T00:00:00",
+  "period_end": "2025-11-26T00:00:00",
+  "email_subject": "Your Daily AI Market Digest"
+}
+
+🔁 Response — SubscriptionResponse
+export interface SubscriptionResponse {
+  success: boolean;
+  message?: string;
+
+  /** The updated subscription record */
+  subscription: SubscriptionPayload;
+}
+
