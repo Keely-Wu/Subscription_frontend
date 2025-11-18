@@ -6,12 +6,12 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import SelectedTickersSidebar from "@/components/tickers/TrackedTickersSidebar";
 import TickerList from "@/components/tickers/TickerList";
 import TopHeader from "@/components/Layout/TopHeader";
+import NewsPanel from "@/components/News/NewsPanel";
 
 export default function ChooseTickersPage() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
 
-  // ---------- Filtering ----------
   const filteredTickers = query
     ? defaultTickers.filter(
         (t) =>
@@ -24,19 +24,22 @@ export default function ChooseTickersPage() {
     selected.includes(t.symbol)
   );
 
-  // ---------- Selection toggle ----------
   const toggleSelect = (symbol: string) => {
-    setSelected((cur) =>
-      cur.includes(symbol)
-        ? cur.filter((s) => s !== symbol)
-        : [...cur, symbol]
-    );
+    setSelected((cur) => {
+      if (cur.includes(symbol)) {
+        return cur.filter((s) => s !== symbol);
+      }
+      return [...cur, symbol]; // newest at end
+    });
   };
 
-  // ---------- Confirm ----------
+  const mostRecent = selectedTickers.length
+    ? selectedTickers[selectedTickers.length - 1]
+    : null;
+
   const handleConfirm = () => {
     if (selected.length === 0) {
-      alert("Please select at least one ticker");
+      alert("Select at least one ticker");
       return;
     }
     localStorage.setItem("selectedTickers", JSON.stringify(selected));
@@ -45,21 +48,19 @@ export default function ChooseTickersPage() {
 
   return (
     <>
-      {/* FIXED TOP HEADER */}
       <TopHeader onConfirm={handleConfirm} />
 
-      {/* MAIN DASHBOARD LAYOUT */}
       <main
         style={{
           display: "flex",
           width: "100vw",
           height: "100vh",
           overflow: "hidden",
-          background: "#ffffff",
-          paddingTop: "56px", // offset for fixed header
+          background: "white",
+          paddingTop: "56px",
         }}
       >
-        {/* ---------------- SIDEBAR 10% ---------------- */}
+        {/* SIDEBAR */}
         <div style={{ width: "10%", minWidth: "130px" }}>
           <SelectedTickersSidebar
             tracked={selectedTickers}
@@ -67,50 +68,39 @@ export default function ChooseTickersPage() {
           />
         </div>
 
-        {/* ---------------- TICKER LIST 30% ---------------- */}
+        {/* TICKER LIST */}
         <div
           style={{
             width: "30%",
             padding: "20px",
-            paddingLeft: "40px",
+            paddingLeft: "35px",
             borderRight: "1px solid #ddd",
             display: "flex",
             flexDirection: "column",
-            overflow: "hidden",
+            gap: "15px",
+            overflowY: "auto",
           }}
         >
-          {/* Search bar fixed at top of panel */}
-          <div style={{ flexShrink: 0 }}>
-            <SearchBar value={query} onChange={setQuery} />
-          </div>
+          <SearchBar value={query} onChange={setQuery} />
 
-          {/* Scrollable ticker list */}
-          <div
-            style={{
-              flexGrow: 1,
-              overflowY: "auto",
-              marginTop: "12px",
-              paddingRight: "6px",
-            }}
-          >
-            <TickerList
-              tickers={filteredTickers}
-              selected={selected}
-              onToggle={(ticker) => toggleSelect(ticker.symbol)}
-              onSelectTicker={() => {}}
-            />
-          </div>
+          <TickerList
+            tickers={filteredTickers}
+            selected={selected}
+            onToggle={(ticker) => toggleSelect(ticker.symbol)}
+            onSelectTicker={() => {}}
+          />
         </div>
 
-        {/* ---------------- NEWS PANEL 60% ---------------- */}
-        <div style={{ width: "60%", padding: "30px" }}>
-          <h2>News & AI Analysis</h2>
-          <p>(Coming soon…)</p>
+        {/* NEWS PANEL */}
+        <div style={{ width: "60%", padding: "30px", overflowY: "auto" }}>
+          <NewsPanel tickers={selectedTickers} mostRecent={mostRecent} />
         </div>
       </main>
     </>
   );
 }
+
+
 
 
 

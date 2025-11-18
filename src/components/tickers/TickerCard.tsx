@@ -23,7 +23,7 @@ export default function TickerCard({
         <div className="ticker-name">{ticker.name}</div>
         <div className="ticker-price">${ticker.price}</div>
 
-        <a className="ticker-news-link">View Related News →</a>
+        <a className="ticker-news-link">View QandQ AI Analysis →</a>
       </div>
 
       <button
