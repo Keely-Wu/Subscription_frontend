@@ -1,13 +1,17 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
-  turbopack: {},
+  reactStrictMode: true,
 
-  compiler: {
-    tsconfigPaths: true, // enables TS path alias automatically
+  // Optional Turbopack config (safe)
+  experimental: {
+    turbo: {
+      rules: {},
+    },
   },
 };
 
 module.exports = nextConfig;
+
 
 
 

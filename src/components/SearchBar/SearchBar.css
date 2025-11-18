@@ -1,0 +1,30 @@
+/* Wrapper ensures input stays inside panel */
+.searchbar-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 5px; /* prevents touching border */
+}
+
+/* From Uiverse.io by Praashoo7 */
+.input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  padding: 1em;
+  background-color: #ccc;
+  box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+  transition: 300ms ease-in-out;
+}
+
+.input:focus {
+  background-color: white;
+  transform: scale(1.02);
+  box-shadow:
+    8px 8px 40px #969696,
+    -8px -8px 40px #ffffff;
+}
+
+

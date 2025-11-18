@@ -1,0 +1,41 @@
+.top-header {
+  width: 100vw;
+  height: 56px;
+  background: #0f0f0f;
+  color: #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  border-bottom: 1px solid #222;
+}
+
+.top-header-btn {
+  background: transparent;
+  border: none;
+  color: #cfcfcf;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.top-header-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+
+.top-header-btn.confirm {
+  color: #78ff8f;
+  font-weight: 600;
+}
+
+.top-header-btn.confirm:hover {
+  background: rgba(120, 255, 143, 0.12);
+}

@@ -1,0 +1,114 @@
+.ticker-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.95);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  /* base shadow */
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.1), -5px -5px 15px rgba(255,255,255,0.7);
+  
+  /* animation */
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+/* DESKTOP hover effect */
+@media (hover: hover) and (pointer: fine) {
+  .ticker-card:hover {
+    transform: translateY(-3px) scale(1.015);
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.15), -10px -10px 30px rgba(255,255,255,0.8);
+    background: rgba(255, 255, 255, 1);
+  }
+
+  .ticker-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at top left,
+      rgba(255,255,255,0.4),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+
+  .ticker-card:hover::after {
+    opacity: 1;
+  }
+}
+
+/* MOBILE tap effect (pulse ripple) */
+@media (hover: none) and (pointer: coarse) {
+  .ticker-card:active {
+    transform: scale(0.97);
+    background: rgba(245, 245, 245, 1);
+  }
+
+  .ticker-card:active::after {
+    content: "";
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    left: -20%;
+    top: -20%;
+    background: rgba(0,0,0,0.08);
+    border-radius: 50%;
+    animation: ripple 0.4s ease-out;
+    pointer-events: none;
+  }
+
+  @keyframes ripple {
+    from { opacity: 0.4; transform: scale(0.7); }
+    to { opacity: 0; transform: scale(1); }
+  }
+}
+
+.ticker-logo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.ticker-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.ticker-symbol {
+  font-weight: 700;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.ticker-name {
+  font-size: 13px;
+  opacity: 0.75;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.ticker-price {
+  font-size: 15px;
+  color: #0da20d;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+
+
+
+
+
