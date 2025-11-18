@@ -11,7 +11,7 @@ export default function ChooseTickersPage() {
   const [query, setQuery] = useState("");
   const [selected, setSelected] = useState<string[]>([]);
 
-  // filtering
+  // ---------- Filtering ----------
   const filteredTickers = query
     ? defaultTickers.filter(
         (t) =>
@@ -24,6 +24,7 @@ export default function ChooseTickersPage() {
     selected.includes(t.symbol)
   );
 
+  // ---------- Selection toggle ----------
   const toggleSelect = (symbol: string) => {
     setSelected((cur) =>
       cur.includes(symbol)
@@ -32,13 +33,12 @@ export default function ChooseTickersPage() {
     );
   };
 
-  // confirm handler
+  // ---------- Confirm ----------
   const handleConfirm = () => {
     if (selected.length === 0) {
       alert("Please select at least one ticker");
       return;
     }
-
     localStorage.setItem("selectedTickers", JSON.stringify(selected));
     window.location.href = "/confirm-subscription";
   };
@@ -55,41 +55,54 @@ export default function ChooseTickersPage() {
           width: "100vw",
           height: "100vh",
           overflow: "hidden",
-          background: "white",
-          paddingTop: "56px", // <<< IMPORTANT
+          background: "#ffffff",
+          paddingTop: "56px", // offset for fixed header
         }}
       >
-        {/* SIDEBAR 10% */}
+        {/* ---------------- SIDEBAR 10% ---------------- */}
         <div style={{ width: "10%", minWidth: "130px" }}>
-          <SelectedTickersSidebar tracked={selectedTickers} onRemove={toggleSelect} />
-        </div>
-
-        {/* TICKER LIST 30% */}
-{/* TICKER LIST 30% */}
-<div
-  style={{
-    width: "30%",
-    padding: "20px",
-    paddingLeft: "35px", 
-    borderRight: "1px solid #ddd",
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-  }}
->
-
-
-          <SearchBar value={query} onChange={setQuery} />
-
-          <TickerList
-            tickers={filteredTickers}
-            selected={selected}
-            onToggle={(ticker) => toggleSelect(ticker.symbol)}
-            onSelectTicker={() => {}}
+          <SelectedTickersSidebar
+            tracked={selectedTickers}
+            onRemove={toggleSelect}
           />
         </div>
 
-        {/* NEWS 60% */}
+        {/* ---------------- TICKER LIST 30% ---------------- */}
+        <div
+          style={{
+            width: "30%",
+            padding: "20px",
+            paddingLeft: "40px",
+            borderRight: "1px solid #ddd",
+            display: "flex",
+            flexDirection: "column",
+            overflow: "hidden",
+          }}
+        >
+          {/* Search bar fixed at top of panel */}
+          <div style={{ flexShrink: 0 }}>
+            <SearchBar value={query} onChange={setQuery} />
+          </div>
+
+          {/* Scrollable ticker list */}
+          <div
+            style={{
+              flexGrow: 1,
+              overflowY: "auto",
+              marginTop: "12px",
+              paddingRight: "6px",
+            }}
+          >
+            <TickerList
+              tickers={filteredTickers}
+              selected={selected}
+              onToggle={(ticker) => toggleSelect(ticker.symbol)}
+              onSelectTicker={() => {}}
+            />
+          </div>
+        </div>
+
+        {/* ---------------- NEWS PANEL 60% ---------------- */}
         <div style={{ width: "60%", padding: "30px" }}>
           <h2>News & AI Analysis</h2>
           <p>(Coming soon…)</p>
@@ -98,6 +111,7 @@ export default function ChooseTickersPage() {
     </>
   );
 }
+
 
 
 
