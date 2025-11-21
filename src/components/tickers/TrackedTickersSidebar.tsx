@@ -20,7 +20,7 @@ export default function TrackedTickersSidebar({
 
       {tracked.map((t) => (
         <div key={t.symbol} className="ticker-row">
-          <img src={t.logo} className="ticker-logo" />
+          <img src={t.logo} className="ticker-logo" alt={t.symbol} />
 
           <span className="ticker-symbol">{t.symbol}</span>
 

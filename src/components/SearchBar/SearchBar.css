@@ -1,8 +1,9 @@
 /* Wrapper ensures input stays inside panel */
 .searchbar-wrapper {
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
-  padding-right: 5px; /* prevents touching border */
+  margin: 0 auto;
 }
 
 /* From Uiverse.io by Praashoo7 */

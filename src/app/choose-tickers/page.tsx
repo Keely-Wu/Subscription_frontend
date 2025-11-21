@@ -61,7 +61,7 @@ export default function ChooseTickersPage() {
         }}
       >
         {/* SIDEBAR */}
-        <div style={{ width: "10%", minWidth: "130px" }}>
+        <div style={{ width: "10%", minWidth: "130px", flexShrink: 0 }}>
           <SelectedTickersSidebar
             tracked={selectedTickers}
             onRemove={toggleSelect}
@@ -71,14 +71,14 @@ export default function ChooseTickersPage() {
         {/* TICKER LIST */}
         <div
           style={{
-            width: "30%",
-            padding: "20px",
-            paddingLeft: "35px",
+            width: "22%",
+            padding: "1.25rem 1.25rem 2.5rem 2rem",
             borderRight: "1px solid #ddd",
             display: "flex",
             flexDirection: "column",
-            gap: "15px",
+            gap: "1rem",
             overflowY: "auto",
+            boxSizing: "border-box",
           }}
         >
           <SearchBar value={query} onChange={setQuery} />
@@ -92,7 +92,7 @@ export default function ChooseTickersPage() {
         </div>
 
         {/* NEWS PANEL */}
-        <div style={{ width: "60%", padding: "30px", overflowY: "auto" }}>
+        <div style={{ width: "68%", padding: "30px", overflowY: "auto" }}>
           <NewsPanel tickers={selectedTickers} mostRecent={mostRecent} />
         </div>
       </main>

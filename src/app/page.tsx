@@ -18,10 +18,10 @@ export default function HomePage() {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
+        minHeight: "100vh",
         margin: 0,
         padding: 0,
-        overflow: "hidden",
+        overflow: "auto",
         background: "#000",
         fontFamily: "Inter, sans-serif",
       }}
@@ -51,6 +51,7 @@ export default function HomePage() {
           zIndex: 10,
           textAlign: "center",
           paddingTop: "110px",
+          paddingBottom: "60px",
           color: "white",
           pointerEvents: "none", // 🟢 allow background to receive hover events
         }}

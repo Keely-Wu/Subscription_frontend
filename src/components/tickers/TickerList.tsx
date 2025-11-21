@@ -14,7 +14,7 @@ export default function TickerList({
   onSelectTicker: (ticker: BasicTicker) => void;
 }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "16px", width: "100%", maxWidth: "100%" }}>
       {tickers.map((t) => (
         <TickerCard
           key={t.symbol}

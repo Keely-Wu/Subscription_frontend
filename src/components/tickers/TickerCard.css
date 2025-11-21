@@ -1,48 +1,87 @@
 .ticker-card {
+  position: relative;
+  border-radius: 14px;
+  z-index: 1111;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: none;
+  transition:
+    transform 0.18s ease;
+  min-height: 80px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.bg {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  border-radius: 11px;
+  overflow: hidden;
+  outline: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.blob {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #08080815;
+  opacity: 0.6;
+  filter: blur(16px);
+  animation: blob-bounce 5s infinite ease;
+}
+
+@keyframes blob-bounce {
+  0% {
+    transform: translate(-50%, -50%) translate3d(-30px, -30px, 0);
+  }
+  25% {
+    transform: translate(-50%, -50%) translate3d(30px, -30px, 0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translate3d(30px, 30px, 0);
+  }
+  75% {
+    transform: translate(-50%, -50%) translate3d(-30px, 30px, 0);
+  }
+  100% {
+    transform: translate(-50%, -50%) translate3d(-30px, -30px, 0);
+  }
+}
+
+.ticker-content {
+  position: relative;
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 16px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.95);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
+  padding: 12px 14px;
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
 
-  /* base shadow */
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.1), -5px -5px 15px rgba(255,255,255,0.7);
-  
-  /* animation */
-  transition:
-    transform 0.18s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease;
+.ticker-info {
+  margin-left: 4px;
 }
 
 /* DESKTOP hover effect */
 @media (hover: hover) and (pointer: fine) {
   .ticker-card:hover {
-    transform: translateY(-3px) scale(1.015);
-    box-shadow: 10px 10px 30px rgba(0,0,0,0.15), -10px -10px 30px rgba(255,255,255,0.8);
+    transform: translateY(-2px);
+  }
+
+  .ticker-card:hover .bg {
     background: rgba(255, 255, 255, 1);
-  }
-
-  .ticker-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      circle at top left,
-      rgba(255,255,255,0.4),
-      transparent 60%
-    );
-    opacity: 0;
-    transition: opacity 0.25s ease;
-    pointer-events: none;
-  }
-
-  .ticker-card:hover::after {
-    opacity: 1;
   }
 }
 
@@ -50,33 +89,26 @@
 @media (hover: none) and (pointer: coarse) {
   .ticker-card:active {
     transform: scale(0.97);
+  }
+
+  .ticker-card:active .bg {
     background: rgba(245, 245, 245, 1);
-  }
-
-  .ticker-card:active::after {
-    content: "";
-    position: absolute;
-    width: 140%;
-    height: 140%;
-    left: -20%;
-    top: -20%;
-    background: rgba(0,0,0,0.08);
-    border-radius: 50%;
-    animation: ripple 0.4s ease-out;
-    pointer-events: none;
-  }
-
-  @keyframes ripple {
-    from { opacity: 0.4; transform: scale(0.7); }
-    to { opacity: 0; transform: scale(1); }
   }
 }
 
+.ticker-logo {
+  display: flex;
+  align-items: flex-start;
+  padding-top: 0;
+  margin-top: -4px;
+}
+
 .ticker-logo img {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
   flex-shrink: 0;
+  object-fit: cover;
 }
 
 .ticker-info {
@@ -84,27 +116,226 @@
   flex-direction: column;
   flex-grow: 1;
   min-width: 0;
+  margin-left: 22px;
 }
 
 .ticker-symbol {
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   white-space: nowrap;
+  line-height: 1.2;
 }
 
 .ticker-name {
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.75;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  line-height: 1.3;
 }
 
 .ticker-price {
-  font-size: 15px;
+  font-size: 14px;
   color: #0da20d;
   font-weight: bold;
   margin-top: 2px;
+  line-height: 1.2;
+}
+
+.ticker-news-link {
+  font-size: 11px;
+  color: #0054ff;
+  text-decoration: none;
+  margin-top: 3px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  line-height: 1.3;
+}
+
+.ticker-news-link:hover {
+  color: #003dcc;
+  text-decoration: underline;
+}
+
+/* Voltage Button - From Uiverse.io by Pradeepsaranbishnoi */
+.voltage-button {
+  position: relative;
+  flex-shrink: 0;
+  margin-left: auto;
+  z-index: 4;
+}
+
+.voltage-button button {
+  color: white;
+  background: #0D1127;
+  padding: 0.4rem 0.9rem;
+  border-radius: 5rem;
+  border: 2.5px solid #5978F3;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1em;
+  letter-spacing: 0.03em;
+  transition: background 0.3s;
+  cursor: pointer;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+
+.voltage-button button:hover {
+  background: #0F1C53;
+}
+
+.voltage-button button.tracked {
+  border-color: #0da20d;
+  background: #0a1a0a;
+}
+
+.voltage-button button.tracked:hover {
+  background: #0d2a0d;
+}
+
+.voltage-button button:hover + svg,
+.voltage-button button:hover + svg + .dots {
+  opacity: 1;
+}
+
+.voltage-button svg {
+  display: block;
+  position: absolute;
+  top: -0.75em;
+  left: -0.25em;
+  width: calc(100% + 0.5em);
+  height: calc(100% + 1.5em);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  transition-delay: 0.1s;
+  z-index: 1;
+}
+
+.voltage-button svg path {
+  stroke-dasharray: 100;
+  filter: url("#voltage-glow");
+}
+
+.voltage-button svg path.line-1 {
+  stroke: #f6de8d;
+  stroke-dashoffset: 0;
+  animation: spark-1 3s linear infinite;
+}
+
+.voltage-button svg path.line-2 {
+  stroke: #6bfeff;
+  stroke-dashoffset: 500;
+  animation: spark-2 3s linear infinite;
+}
+
+.voltage-button button.tracked + svg path.line-1 {
+  stroke: #0da20d;
+}
+
+.voltage-button button.tracked + svg path.line-2 {
+  stroke: #4ade80;
+}
+
+.voltage-button .dots {
+  opacity: 0;
+  transition: opacity 0.3s;
+  transition-delay: 0.4s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.voltage-button .dots .dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: white;
+  border-radius: 100%;
+  position: absolute;
+  opacity: 0;
+}
+
+.voltage-button .dots .dot-1 {
+  top: 0;
+  left: 20%;
+  animation: fly-up 3s linear infinite;
+}
+
+.voltage-button .dots .dot-2 {
+  top: 0;
+  left: 55%;
+  animation: fly-up 3s linear infinite;
+  animation-delay: 0.5s;
+}
+
+.voltage-button .dots .dot-3 {
+  top: 0;
+  left: 80%;
+  animation: fly-up 3s linear infinite;
+  animation-delay: 1s;
+}
+
+.voltage-button .dots .dot-4 {
+  bottom: 0;
+  left: 30%;
+  animation: fly-down 3s linear infinite;
+  animation-delay: 2.5s;
+}
+
+.voltage-button .dots .dot-5 {
+  bottom: 0;
+  left: 65%;
+  animation: fly-down 3s linear infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes spark-1 {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+@keyframes spark-2 {
+  to {
+    stroke-dashoffset: -500;
+  }
+}
+
+@keyframes fly-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.2);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(-1.5rem) scale(0.4);
+  }
+  10%, 100% {
+    opacity: 0;
+    transform: translateY(-3rem) scale(0.2);
+  }
+}
+
+@keyframes fly-down {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.2);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(1.5rem) scale(0.4);
+  }
+  10%, 100% {
+    opacity: 0;
+    transform: translateY(3rem) scale(0.2);
+  }
 }
 
 
